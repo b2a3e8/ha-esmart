@@ -1,0 +1,140 @@
+{
+  "apartment": {
+    "id": "00:11:22:33:44:55",
+    "tenant_name": "Jane Example",
+    "name": "00:11:22:33:44:55",
+    "meters": [
+      {
+        "id": 17,
+        "unit": "Wh",
+        "visible": true,
+        "name": "Electricity meter",
+        "type": "electricity",
+        "inverted": false,
+        "production": false,
+        "type_id": 1
+      }
+    ],
+    "floors": [
+      {
+        "id": 2000,
+        "name": "B1-F2-03",
+        "rooms": [
+          {
+            "id": 3000,
+            "name": "Living room",
+            "nodes": [
+              {
+                "id": 9,
+                "name": "Ceiling light",
+                "type_id": 2,
+                "type_name": "Lampe",
+                "is_thermostat": false,
+                "mapped": [
+                  {
+                    "id": -1
+                  }
+                ]
+              },
+              {
+                "id": 42,
+                "name": "Dimmer",
+                "type_id": 3,
+                "type_name": "Lampe Dim.",
+                "min_level": 0,
+                "max_level": 100,
+                "is_thermostat": false,
+                "mapped": [
+                  {
+                    "id": -1
+                  }
+                ]
+              },
+              {
+                "id": 49,
+                "name": "Blind",
+                "type_id": 4,
+                "type_name": "Store",
+                "reverted": false,
+                "has_orientation": true,
+                "is_thermostat": false,
+                "mapped": [
+                  {
+                    "id": -1
+                  }
+                ]
+              },
+              {
+                "id": 57,
+                "name": "Markise 1",
+                "type_id": 4,
+                "type_name": "Store",
+                "reverted": false,
+                "has_orientation": false,
+                "is_thermostat": false,
+                "mapped": [
+                  {
+                    "id": -1
+                  }
+                ]
+              },
+              {
+                "id": 26,
+                "name": "Living room heating",
+                "type_id": 6,
+                "type_name": "Heating",
+                "mapped": [
+                  {
+                    "id": 13
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": 3001,
+            "name": "Bedroom",
+            "nodes": [
+              {
+                "id": 13,
+                "name": "Bedside light",
+                "type_id": 2,
+                "type_name": "Lampe",
+                "is_thermostat": false,
+                "mapped": [
+                  {
+                    "id": -1
+                  }
+                ]
+              },
+              {
+                "id": 25,
+                "name": "Bedroom heating",
+                "type_id": 6,
+                "type_name": "Heating",
+                "mapped": [
+                  {
+                    "id": 9
+                  }
+                ]
+              },
+              {
+                "id": 90,
+                "name": "Ventilation",
+                "type_id": 11,
+                "type_name": "Ventilation",
+                "mapped": [
+                  {
+                    "id": -1
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "version_count": 35,
+  "version": "2026-01-01 12:00:00+0000"
+}

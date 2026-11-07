@@ -1,0 +1,80 @@
+{
+  "nodes": [
+    {
+      "id": 9,
+      "data": {
+        "onoff": "on",
+        "power": 12
+      }
+    },
+    {
+      "id": 42,
+      "data": {
+        "dimming": "60%",
+        "power": 30
+      }
+    },
+    {
+      "id": 49,
+      "data": {
+        "position": 1024,
+        "orientation": 512,
+        "power": 0
+      }
+    },
+    {
+      "id": 57,
+      "data": {
+        "position": 0,
+        "power": 1
+      }
+    },
+    {
+      "id": 26,
+      "data": {
+        "power": 0,
+        "deviceOnOff": "on",
+        "setpoint": 21,
+        "temperature": 20.5
+      }
+    },
+    {
+      "id": 13,
+      "data": {
+        "onoff": "off",
+        "power": 0
+      }
+    },
+    {
+      "id": 25,
+      "data": {
+        "power": 0,
+        "deviceOnOff": "off",
+        "setpoint": 19,
+        "temperature": 19.4
+      }
+    }
+  ],
+  "meters": [
+    {
+      "id": 0,
+      "power": 613,
+      "name": "Total energy"
+    },
+    {
+      "id": 3,
+      "power": 0,
+      "name": "Hot water"
+    },
+    {
+      "id": 3,
+      "flow_rate": 4,
+      "name": "Hot water"
+    },
+    {
+      "id": 8,
+      "temperature": 21.5,
+      "name": ""
+    }
+  ]
+}

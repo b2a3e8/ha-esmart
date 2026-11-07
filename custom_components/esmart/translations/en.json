@@ -1,0 +1,91 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Pair with eSMART",
+        "description": "On the eSMART wall unit, open **Settings → Remote access** and start adding a new remote so a pairing code is shown. Enter that code below. The wall unit has to accept it within about 45 seconds.",
+        "data": {
+          "pairing_code": "Pairing code",
+          "nickname": "Name shown on the wall unit"
+        },
+        "data_description": {
+          "pairing_code": "The number the wall unit shows while adding a remote.",
+          "nickname": "How this remote is listed on the wall unit."
+        }
+      },
+      "reauth_confirm": {
+        "title": "Pair with eSMART again",
+        "description": "The wall unit no longer accepts this remote, for example because it was deleted there. On the eSMART wall unit, open **Settings → Remote access** and start adding a new remote so a pairing code is shown. Enter that code below. The wall unit has to accept it within about 45 seconds.",
+        "data": {
+          "pairing_code": "Pairing code"
+        },
+        "data_description": {
+          "pairing_code": "The number the wall unit shows while adding a remote."
+        }
+      },
+      "reconfigure": {
+        "title": "Pair with eSMART again",
+        "description": "This registers a new remote and replaces the current one, keeping your entities. On the eSMART wall unit, open **Settings → Remote access** and start adding a new remote so a pairing code is shown. Enter that code below. The wall unit has to accept it within about 45 seconds.",
+        "data": {
+          "pairing_code": "Pairing code",
+          "nickname": "Name shown on the wall unit"
+        },
+        "data_description": {
+          "pairing_code": "The number the wall unit shows while adding a remote.",
+          "nickname": "How this remote is listed on the wall unit."
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not reach the eSMART servers. Check your internet connection and try again.",
+      "invalid_code": "The pairing code must be the number shown on the wall unit.",
+      "pairing_timeout": "The wall unit did not accept the code. Make sure it is showing a pairing code, then try again.",
+      "unknown": "An unexpected error occurred. Check the logs for details."
+    },
+    "abort": {
+      "already_configured": "This eSMART installation is already set up.",
+      "reauth_successful": "Paired again successfully.",
+      "reconfigure_successful": "Paired again successfully.",
+      "wrong_installation": "That code belongs to a different eSMART installation. Add it as a new integration instead."
+    }
+  },
+  "entity": {
+    "button": {
+      "door": {}
+    },
+    "sensor": {
+      "node_power": {
+        "name": "{name} power"
+      },
+      "meter_flow_rate": {
+        "name": "{name} flow rate"
+      },
+      "meter_power_unnamed": {
+        "name": "Power {id}"
+      },
+      "meter_flow_rate_unnamed": {
+        "name": "Flow rate {id}"
+      },
+      "meter_temperature_unnamed": {
+        "name": "Temperature {id}"
+      }
+    }
+  },
+  "exceptions": {
+    "not_connected": {
+      "message": "Not connected to eSMART. The command was not sent."
+    },
+    "invalid_auth": {
+      "message": "The wall unit no longer accepts this remote. Pair it again."
+    },
+    "cannot_connect": {
+      "message": "Could not connect to eSMART: {error}"
+    }
+  },
+  "issues": {
+    "room_access_denied": {
+      "title": "eSMART wall unit denies access",
+      "description": "The wall unit doesn't let {title} into its device room, so no devices or updates arrive. This usually means the remote was deleted on the wall unit or pairing didn't finish.\n\nTo fix it, go to **Settings → Devices & services → eSMART**, open the menu of the entry and choose **Reconfigure** to pair again."
+    }
+  }
+}

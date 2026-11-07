@@ -1,0 +1,21 @@
+{
+  "domain": "esmart",
+  "name": "eSMART",
+  "categories": [
+    "hubs_protocols.building_automation",
+    "lighting",
+    "blinds_curtains"
+  ],
+  "codeowners": [
+    "@b2a3e8"
+  ],
+  "config_flow": true,
+  "documentation": "https://github.com/b2a3e8/ha-esmart",
+  "integration_type": "hub",
+  "iot_class": "cloud_push",
+  "issue_tracker": "https://github.com/b2a3e8/ha-esmart/issues",
+  "requirements": [
+    "slixmpp>=1.17.0"
+  ],
+  "version": "0.1.0"
+}

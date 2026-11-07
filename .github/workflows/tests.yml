@@ -1,0 +1,48 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.14"
+      - run: pip install ruff
+      - run: ruff format --check .
+      - run: ruff check .
+
+  pytest:
+    name: pytest (${{ matrix.name }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Add the oldest Home Assistant release hacs.json allows (2026.11.0)
+          # here once pytest-homeassistant-custom-component publishes a
+          # release for it. The 2026.10 harness doesn't run on 2026.11.
+          - name: pinned
+            harness: -r requirements_test.txt
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.14"
+      - run: pip install ${{ matrix.harness }} pytest-cov
+      # The integration's own requirements (slixmpp), read from the manifest
+      # so CI stays in sync with what Home Assistant installs.
+      - run: >-
+          pip install $(python -c "import json;
+          print(' '.join(json.load(open('custom_components/esmart/manifest.json'))['requirements']))")
+      - run: pytest --cov=custom_components/esmart --cov-report=term-missing

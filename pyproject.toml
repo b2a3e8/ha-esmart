@@ -1,0 +1,23 @@
+# Development tooling only: Home Assistant installs the integration from
+# custom_components/esmart, not from this file.
+
+[tool.ruff]
+target-version = "py314"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["ASYNC", "B", "BLE", "E", "F", "I", "RUF", "SIM", "UP", "W"]
+
+[tool.ruff.lint.per-file-ignores]
+# Test fakes keep shared state on the class on purpose.
+"tests/*" = ["RUF012"]
+
+[tool.ruff.lint.isort]
+force-sort-within-sections = true
+known-first-party = ["custom_components"]
+combine-as-imports = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]

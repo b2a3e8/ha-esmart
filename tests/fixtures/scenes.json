@@ -1,0 +1,35 @@
+{
+  "fullConfig": false,
+  "scenes": [
+    {
+      "id": 1,
+      "num": 1,
+      "name": "Wind alert",
+      "version": "2019-05-23 09:38:05+0000",
+      "active": true,
+      "accessType": 1,
+      "nodes": [],
+      "automations": []
+    },
+    {
+      "id": 2,
+      "num": 2,
+      "name": "Quiet",
+      "version": "2018-02-06 09:28:24+0000",
+      "active": true,
+      "accessType": 0,
+      "nodes": [],
+      "automations": []
+    },
+    {
+      "id": 3,
+      "num": 3,
+      "name": "Holiday",
+      "version": "2018-02-06 09:30:00+0000",
+      "active": false,
+      "accessType": 0,
+      "nodes": [],
+      "automations": []
+    }
+  ]
+}

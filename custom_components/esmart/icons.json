@@ -1,0 +1,17 @@
+{
+  "entity": {
+    "button": {
+      "door": {
+        "default": "mdi:door-open"
+      }
+    },
+    "sensor": {
+      "meter_flow_rate": {
+        "default": "mdi:water"
+      },
+      "meter_flow_rate_unnamed": {
+        "default": "mdi:water"
+      }
+    }
+  }
+}

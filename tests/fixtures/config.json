@@ -1,0 +1,9 @@
+{
+  "setpoint_min_temp": 18,
+  "setpoint_max_temp": 24,
+  "setpoint_increment": 1,
+  "cooling_setpoint_min_temp": 20,
+  "cooling_setpoint_max_temp": 28,
+  "meteo_zip_code": "1234",
+  "location": "Example town"
+}

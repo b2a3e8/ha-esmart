@@ -1,0 +1,21 @@
+name: Device support request
+description: Your installation has a device the integration doesn't show.
+labels: [device support]
+body:
+  - type: textarea
+    id: device
+    attributes:
+      label: Device
+      description: What is it, and what can you do with it in the eSMART app or on the wall unit?
+    validations:
+      required: true
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnostics
+      description: >-
+        Settings → Devices & services → eSMART → ⋮ → Download diagnostics.
+        Drag the file here. Its `structure` section shows how the wall unit
+        describes the device.
+    validations:
+      required: true

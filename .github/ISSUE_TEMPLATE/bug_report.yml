@@ -1,0 +1,64 @@
+name: Bug report
+description: Something doesn't work as it should.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting! The diagnostics download is the best thing to
+        attach: it leaves out your account details, name and address.
+        **Check debug logs before you paste them.** They aren't cleaned up and
+        contain your installation ID, account ID, name, postcode and room names.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: input
+    id: integration_version
+    attributes:
+      label: Integration version
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: input
+    id: ha_version
+    attributes:
+      label: Home Assistant version
+      placeholder: "2026.11.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: device
+    attributes:
+      label: Which kind of device is affected?
+      multiple: true
+      options:
+        - Light / dimmer
+        - Blind / shutter
+        - Awning
+        - Heating
+        - Door
+        - Scene
+        - Meter / power sensor
+        - Pairing / connection
+        - Other
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnostics
+      description: >-
+        Settings → Devices & services → eSMART → ⋮ → Download diagnostics.
+        Drag the file here.
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log lines
+      description: >-
+        The `custom_components.esmart` lines around the problem. Before
+        posting, replace your installation ID (the
+        `xx-xx-xx-…@conference.myesmart.net` part), account ID
+        (`i-…@myesmart.net`), name and postcode.
+      render: text
