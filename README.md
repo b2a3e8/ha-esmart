@@ -37,27 +37,17 @@ separate device called **eSMART Controller**.
 
 ## Installation
 
-This plugin isn't in the official Home Assistant Marketplace catalog yet, so
-searching the Marketplace won't find it. Instead, you add this repository to
-the Marketplace yourself by its link. You only do this once. After that, this plugin updates like anything else you
-installed from the Marketplace.
+eSMART is in the Home Assistant Marketplace catalog.
 
-The button below opens the right page in your Home Assistant with everything
-filled in:
+1. In Home Assistant, go to **Settings → Marketplace** and search for
+   **eSMART**.
+2. Open it, select **Install**, and restart Home Assistant when it asks you
+   to.
+
+Or alternatively the button below opens the eSMART page in the Marketplace of
+your Home Assistant directly:
 
 [![Open your Home Assistant instance and open this repository in the Marketplace.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=b2a3e8&repository=ha-esmart&category=integration)
-
-Or do it by hand:
-
-1. In Home Assistant, go to **Settings → Marketplace** and select **Add from
-   link** in the upper-right corner.
-2. Enter `https://github.com/b2a3e8/ha-esmart` and select **Add**. If Home
-   Assistant asks for a type, choose **Integration**.
-3. Home Assistant asks you to connect a GitHub account, unless you already
-   did. That's required for every repository added by link, not just this
-   one. Follow the steps on screen. A free GitHub account is enough.
-4. Open **eSMART**, select **Install**, and restart Home Assistant when it
-   asks you to.
 
 ## Setup
 
