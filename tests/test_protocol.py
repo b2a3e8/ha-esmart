@@ -109,9 +109,7 @@ def test_parse_meter_readings() -> None:
 
 
 def _node(**kwargs: object) -> ESmartNode:
-    return ESmartNode(
-        room_jid=ROOM, node_id=1, name="n", room_name="r", room_id=1, **kwargs
-    )
+    return ESmartNode(room_jid=ROOM, node_id=1, name="n", room_name="r", **kwargs)
 
 
 def test_apply_state_tracks_capabilities_and_brightness() -> None:

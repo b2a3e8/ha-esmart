@@ -59,7 +59,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ESmartConfigEntry) -> bo
 
     entry.runtime_data = hub
 
-    # Register the controller "bridge" device that rooms hang off of.
+    # Register the controller "bridge" device that every node hangs off of.
     controller = dr.async_get(hass).async_get_or_create(
         config_entry_id=entry.entry_id,
         identifiers={(DOMAIN, entry.entry_id)},
@@ -116,5 +116,5 @@ async def async_remove_entry(hass: HomeAssistant, entry: ESmartConfigEntry) -> N
 async def async_remove_config_entry_device(
     hass: HomeAssistant, entry: ESmartConfigEntry, device: dr.DeviceEntry
 ) -> bool:
-    """Allow deleting a room device the wall unit no longer reports."""
+    """Allow deleting a device the wall unit no longer reports."""
     return not (device.identifiers & entry.runtime_data.current_device_identifiers())

@@ -12,7 +12,7 @@ Everything lives in [`custom_components/esmart`](../custom_components/esmart).
 | [`client.py`](../custom_components/esmart/client.py) | The XMPP connection, built on `slixmpp`: account registration, pairing, room joins, reconnects, the health ping and sending commands. No Home Assistant imports. |
 | [`protocol.py`](../custom_components/esmart/protocol.py) | The wire format: the node model, device classification, parsing and message builders. No Home Assistant or XMPP imports. |
 | [`coordinator.py`](../custom_components/esmart/coordinator.py) | `ESmartHub`: turns incoming messages into entity state, adds and removes devices, and turns client errors into Home Assistant errors. |
-| [`entity.py`](../custom_components/esmart/entity.py) | Entity base classes and the setup code all platforms share. |
+| [`entity.py`](../custom_components/esmart/entity.py) | Entity base classes and the setup code all platforms share. Each node is its own device, named after the node, suggested into its room's area and connected through the **eSMART Controller** device, which also holds the door, scenes and meters. A node's main entity has no name of its own, so it takes the device's. |
 | `light.py`, `cover.py`, `climate.py`, `button.py`, `scene.py`, `sensor.py` | One file per entity platform. |
 | [`config_flow.py`](../custom_components/esmart/config_flow.py) | Pairing, and pairing again (reauth and reconfigure). |
 | [`diagnostics.py`](../custom_components/esmart/diagnostics.py) | The redacted diagnostics download. |

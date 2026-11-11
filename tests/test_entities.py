@@ -51,20 +51,15 @@ def eid(hass: HomeAssistant, platform: str, unique_id: str) -> str:
     return entity_id
 
 
-def room_device(hass: HomeAssistant, room_id: int) -> dr.DeviceEntry | None:
-    """The device of an eSMART room, looked up the way the integration does."""
-    entry_id = client_entry_id(hass)
-    identifier = (DOMAIN, f"{entry_id}_{ROOM}_{room_id}")
-    return next(
-        (
-            device
-            for device in dr.async_entries_for_config_entry(
-                dr.async_get(hass), entry_id
-            )
-            if identifier in device.identifiers
-        ),
-        None,
+def device(hass: HomeAssistant, identifier: str) -> dr.DeviceEntry | None:
+    """The eSMART device with this identifier."""
+    return dr.async_get(hass).async_get_device_by_identifier(
+        (DOMAIN, identifier), client_entry_id(hass)
     )
+
+
+def node_device(hass: HomeAssistant, node_id: int) -> dr.DeviceEntry | None:
+    return device(hass, f"{ROOM}_{node_id}")
 
 
 def state(hass: HomeAssistant, platform: str, unique_id: str) -> State:
@@ -101,10 +96,14 @@ async def test_entities_are_created(hass: HomeAssistant, client: FakeClient) -> 
     # The unsupported ventilation node and the inactive scene are skipped.
     assert registry.async_get_entity_id("scene", DOMAIN, f"{ROOM}_scene_3") is None
 
-    room = room_device(hass, 3000)
-    assert room is not None
-    assert room.name == "Living room"
-    area = ar.async_get(hass).async_get_area(room.area_id)
+    light = node_device(hass, 9)
+    assert light is not None
+    assert light.name == "Ceiling light"
+    assert light.model == "eSMART Light"
+    controller = device(hass, client_entry_id(hass))
+    assert controller is not None
+    assert light.via_device_id == controller.id
+    area = ar.async_get(hass).async_get_area(light.area_id)
     assert area is not None
     assert area.name == "Living room"
 
@@ -216,8 +215,8 @@ async def test_climate_follows_the_wall_units_limits(
 async def test_climate_mode_survives_restart(
     hass: HomeAssistant, fake_client: type[FakeClient], config_entry: MockConfigEntry
 ) -> None:
-    # Home Assistant puts area, device and entity name into new entity IDs.
-    entity_id = "climate.living_room_living_room_living_room_heating"
+    # Home Assistant puts area and device name into new entity IDs.
+    entity_id = "climate.living_room_living_room_heating"
     mock_restore_cache(hass, [State(entity_id, HVACMode.OFF)])
     await setup_integration(hass, config_entry)
     assert eid(hass, "climate", f"{ROOM}_26") == entity_id
@@ -227,7 +226,7 @@ async def test_climate_mode_survives_restart(
 async def test_sensors(hass: HomeAssistant, client: FakeClient) -> None:
     power = state(hass, "sensor", f"{ROOM}_9_power")
     assert power.state == "12"
-    assert power.attributes[ATTR_FRIENDLY_NAME] == "Living room Ceiling light power"
+    assert power.attributes[ATTR_FRIENDLY_NAME] == "Ceiling light Power"
 
     flow = state(hass, "sensor", f"{ROOM}_meter_3_flow_rate")
     assert flow.state == "4"
@@ -312,8 +311,9 @@ async def test_removed_nodes_are_cleaned_up(
     ):
         assert registry.async_get_entity_id(platform, DOMAIN, uid) is None
         assert hass.states.async_entity_ids(platform)  # the others remain
-    assert room_device(hass, 3001) is None
-    assert room_device(hass, 3000) is not None
+    assert node_device(hass, 13) is None
+    assert node_device(hass, 25) is None
+    assert node_device(hass, 9) is not None
 
     # A node that comes back is added again.
     client.send("structure", load_fixture("structure.json"))

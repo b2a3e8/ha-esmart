@@ -43,6 +43,7 @@ async def async_setup_entry(
 class ESmartClimate(ESmartNodeEntity, ClimateEntity, RestoreEntity):
     """An eSMART heating valve, exposed as a heat/off thermostat."""
 
+    _attr_name = None  # the node's main feature, named after its device
     _attr_temperature_unit = UnitOfTemperature.CELSIUS
     _attr_hvac_modes = [HVACMode.OFF, HVACMode.HEAT]  # noqa: RUF012 - HA convention
     _attr_supported_features = (
@@ -52,7 +53,7 @@ class ESmartClimate(ESmartNodeEntity, ClimateEntity, RestoreEntity):
     )
 
     def __init__(self, hub: ESmartHub, node: ESmartNode) -> None:
-        super().__init__(hub, node, node.name)
+        super().__init__(hub, node)
         # The wall unit reports whether the valve is heating, but not whether
         # heating is switched on, so the mode is tracked here and restored
         # across restarts. Telemetry wins if it ever carries "onoff".

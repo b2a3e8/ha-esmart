@@ -57,8 +57,10 @@ def percent_to_ticks(percent: int) -> int:
 class ESmartCover(ESmartNodeEntity, CoverEntity):
     """An eSMART shutter, with optional slat tilt on venetian blinds."""
 
+    _attr_name = None  # the node's main feature, named after its device
+
     def __init__(self, hub: ESmartHub, node: ESmartNode) -> None:
-        super().__init__(hub, node, node.name)
+        super().__init__(hub, node)
         # The wall unit reports awnings and blinds alike; only the name differs.
         self._attr_device_class = (
             CoverDeviceClass.AWNING

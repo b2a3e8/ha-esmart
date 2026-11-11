@@ -40,8 +40,10 @@ def _to_percent(brightness: int) -> int:
 class ESmartLight(ESmartNodeEntity, LightEntity):
     """An eSMART lamp, dimmable when the wall unit reports a dimming value."""
 
+    _attr_name = None  # the node's main feature, named after its device
+
     def __init__(self, hub: ESmartHub, node: ESmartNode) -> None:
-        super().__init__(hub, node, node.name)
+        super().__init__(hub, node)
         mode = ColorMode.BRIGHTNESS if node.dimmable else ColorMode.ONOFF
         self._attr_color_mode = mode
         self._attr_supported_color_modes = {mode}

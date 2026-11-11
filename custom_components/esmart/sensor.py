@@ -81,12 +81,10 @@ class ESmartNodePowerSensor(ESmartNodeEntity, SensorEntity):
     _attr_device_class = SensorDeviceClass.POWER
     _attr_native_unit_of_measurement = UnitOfPower.WATT
     _attr_state_class = SensorStateClass.MEASUREMENT
-    _attr_translation_key = "node_power"
 
     def __init__(self, hub: ESmartHub, node: ESmartNode) -> None:
         super().__init__(hub, node)
         self._attr_unique_id = f"{node.unique_id}_power"
-        self._attr_translation_placeholders = {"name": node.name}
 
     @property
     def native_value(self) -> int | float | None:

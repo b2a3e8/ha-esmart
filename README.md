@@ -22,9 +22,10 @@ Alexa through Home Assistant.
 - Changes made on the wall unit or in the eSMART app show up in Home
   Assistant right away, and the other way round.
 
-Each room on the wall unit becomes a device in Home Assistant, with the room
-name suggested as its area. The door, the scenes and the meters sit on a
-separate device called **eSMART Controller**.
+Each light, blind and heating valve on the wall unit becomes its own device
+in Home Assistant, placed in the area named after its room on the wall unit.
+The door, the scenes and the meters sit on a separate device called **eSMART
+Controller**, which all the other devices connect through.
 
 ## What you need
 
@@ -64,7 +65,7 @@ a phone with the eSMART app. The wall unit calls this a "remote".
 You can also change the name the wall unit lists this remote under. It's
 "Home Assistant" unless you change it.
 
-After a few seconds your rooms and devices show up. If you have more than one
+After a few seconds your devices show up, each in the area of its room. If you have more than one
 eSMART apartment, add each one the same way.
 
 ## Using it
@@ -114,13 +115,15 @@ integrations.
 
 ### When something changes on the wall unit
 
-- **Device deleted:** it disappears from Home Assistant on its own.
-- **Device added, renamed or moved to another room:** reload the integration
+- **Device deleted:** it disappears from Home Assistant on its own. If one
+  stays behind (for example because it was deleted while Home Assistant was
+  off), open it in Home Assistant and delete it.
+- **Device added or renamed:** reload the integration
   (**Settings → Devices & services → eSMART →** ⋮ → **Reload**) or restart
   Home Assistant to pick up the change. Names you set yourself in Home
   Assistant are kept.
-- **Empty room device left behind:** if a room no longer has any devices,
-  open it in Home Assistant and delete it.
+- **Device moved to another room:** Home Assistant only picks the area when
+  it first adds a device, so change the area on the device yourself.
 
 ### When the connection drops
 

@@ -212,10 +212,11 @@ class ESmartHub:
         present: set[str] = set()
         for floor in _dicts(apartment.get("floors")):
             for room in _dicts(floor.get("rooms")):
-                room_id = room.get("id") if isinstance(room.get("id"), int) else None
-                room_name = str(room.get("name") or f"Room {room_id or ''}").strip()
+                room_name = str(
+                    room.get("name") or f"Room {room.get('id', '')}"
+                ).strip()
                 for node in _dicts(room.get("nodes")):
-                    if uid := self._register_node(room_jid, room_name, room_id, node):
+                    if uid := self._register_node(room_jid, room_name, node):
                         present.add(uid)
         _LOGGER.debug(
             "Parsed structure from %s: %d node(s) known (%d new)",
@@ -238,10 +239,10 @@ class ESmartHub:
             _LOGGER.info("Removing %s, which the wall unit no longer lists", node.name)
             self._remove_entities(uid)
         if stale:
-            self._remove_empty_devices()
+            self._remove_stale_devices()
 
     def _register_node(
-        self, room_jid: str, room_name: str, room_id: int | None, node: dict[str, Any]
+        self, room_jid: str, room_name: str, node: dict[str, Any]
     ) -> str | None:
         """Add or update one structure node; returns its unique ID if supported."""
         kind = classify_node(node.get("type_id"), node.get("type_name"))
@@ -262,7 +263,6 @@ class ESmartHub:
         if (existing := self.nodes.get(unique_id)) is not None:
             existing.name = name
             existing.room_name = room_name
-            existing.room_id = room_id
             return unique_id
 
         new_node = ESmartNode(
@@ -270,7 +270,6 @@ class ESmartHub:
             node_id=node_id,
             name=name,
             room_name=room_name,
-            room_id=room_id,
             kind=kind,
             # Entities fix their features when created, which can be before the
             # first telemetry, so take what the structure declares up front.
@@ -513,24 +512,21 @@ class ESmartHub:
         """Tell the entities of a removed node, door or scene to go away."""
         async_dispatcher_send(self.hass, signal_node_removed(self.entry_id, unique_id))
 
-    def _remove_empty_devices(self) -> None:
-        """Drop room devices that no longer have any nodes."""
+    def _remove_stale_devices(self) -> None:
+        """Drop the devices of nodes the wall unit no longer lists."""
         device_registry = dr.async_get(self.hass)
         current = self.current_device_identifiers()
         for device in dr.async_entries_for_config_entry(device_registry, self.entry_id):
             identifiers = {i for i in device.identifiers if i[0] == DOMAIN}
             if not identifiers or identifiers & current:
                 continue
-            _LOGGER.debug("Removing empty eSMART device %s", device.name)
+            _LOGGER.debug("Removing stale eSMART device %s", device.name)
             device_registry.async_remove_device(device.id)
 
     def current_device_identifiers(self) -> set[tuple[str, str]]:
         """Identifiers of every device the hub currently provides entities for."""
         identifiers = {(DOMAIN, self.entry_id)}  # the controller
-        identifiers.update(
-            (DOMAIN, f"{self.entry_id}_{node.device_id}")
-            for node in self.nodes.values()
-        )
+        identifiers.update((DOMAIN, uid) for uid in self.nodes)
         return identifiers
 
     # -- outbound (used by entities) --------------------------------------

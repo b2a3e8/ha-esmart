@@ -54,9 +54,6 @@
       "door": {}
     },
     "sensor": {
-      "node_power": {
-        "name": "{name} power"
-      },
       "meter_flow_rate": {
         "name": "{name} flow rate"
       },

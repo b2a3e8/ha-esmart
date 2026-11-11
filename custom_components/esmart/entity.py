@@ -111,16 +111,14 @@ class ESmartEntity(Entity):
 
 
 class ESmartNodeEntity(ESmartEntity):
-    """Base for node-backed entities, grouped into a per-room device."""
+    """Base for node-backed entities: each node is its own device in its room."""
 
-    def __init__(
-        self, hub: ESmartHub, node: ESmartNode, name: str | None = None
-    ) -> None:
-        super().__init__(hub, node.unique_id, name)
+    def __init__(self, hub: ESmartHub, node: ESmartNode) -> None:
+        super().__init__(hub, node.unique_id, None)
         self.node = node
         self._attr_device_info = DeviceInfo(
-            identifiers={(DOMAIN, f"{hub.entry_id}_{node.device_id}")},
-            name=node.room_name,
+            identifiers={(DOMAIN, node.unique_id)},
+            name=node.name,
             manufacturer="eSMART",
             model=f"eSMART {node.kind.title()}",
             suggested_area=node.room_name,

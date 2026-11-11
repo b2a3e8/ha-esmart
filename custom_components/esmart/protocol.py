@@ -73,7 +73,6 @@ class ESmartNode:
     node_id: int
     name: str
     room_name: str
-    room_id: int | None
     kind: str
 
     # Dynamic state, populated from ``data``/``operation`` messages.
@@ -99,12 +98,6 @@ class ESmartNode:
     @property
     def unique_id(self) -> str:
         return f"{self.room_jid}_{self.node_id}"
-
-    @property
-    def device_id(self) -> str:
-        """Stable identifier for the per-room Home Assistant device."""
-        room = self.room_id if self.room_id is not None else self.room_name
-        return f"{self.room_jid}_{room}"
 
     def apply_state(self, data: dict[str, Any]) -> bool:
         """Merge a parsed ``data`` payload. Returns ``True`` if anything changed."""

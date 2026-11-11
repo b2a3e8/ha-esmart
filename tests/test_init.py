@@ -191,12 +191,12 @@ async def test_remove_device(
     current = next(
         device
         for device in dr.async_entries_for_config_entry(devices, config_entry.entry_id)
-        if device.name == "Living room"
+        if device.name == "Ceiling light"
     )
     stale = devices.async_get_or_create(
         config_entry_id=config_entry.entry_id,
-        identifiers={(DOMAIN, f"{config_entry.entry_id}_{ROOM}_9999")},
-        name="Old room",
+        identifiers={(DOMAIN, f"{ROOM}_9999")},
+        name="Old light",
     )
     assert not await async_remove_config_entry_device(hass, config_entry, current)
     assert await async_remove_config_entry_device(hass, config_entry, stale)
