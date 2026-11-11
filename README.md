@@ -7,9 +7,9 @@ automations and dashboards, and pass them on to Apple Home, Google Home or
 Alexa through Home Assistant.
 
 > [!IMPORTANT]
-> This is a hobby project. It is not made, endorsed or supported by eSMART.
-> It works by speaking the same undocumented protocol as the official app,
-> and eSMART can change that at any time. Use it at your own risk.
+> This is a hobby project. It is not made, endorsed or supported by eSMART
+> Technologies SA. It uses the same undocumented protocol as the official
+> app, and eSMART can change that at any time. Use it at your own risk.
 
 ## Features
 
