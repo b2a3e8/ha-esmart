@@ -47,7 +47,7 @@ CONNECT_TIMEOUT_SECONDS = 30.0
 # How long a clean disconnect may take before the socket is closed hard.
 DISCONNECT_TIMEOUT_SECONDS = 5.0
 # How long the wall unit has to accept a pairing code.
-PAIRING_TIMEOUT_SECONDS = 45.0
+PAIRING_TIMEOUT_SECONDS = 60.0
 # How long to stay in the shared room after announcing ourselves.
 PAIRING_ANNOUNCE_SECONDS = 1.0
 
@@ -549,9 +549,9 @@ class ESmartClient(_ReuseSSLContext, slixmpp.ClientXMPP):
         self._start_watchdog()
 
     def _on_disconnected(self, reason: Any) -> None:
-        self._call_on_loop(self._handle_disconnected, reason)
+        self._call_on_loop(self._handle_connection_lost, reason)
 
-    def _handle_disconnected(self, reason: Any) -> None:
+    def _handle_connection_lost(self, reason: Any) -> None:
         self._session_ready.clear()
         self._on_connection(False)
         self._stop_watchdog()
@@ -741,9 +741,9 @@ class ESmartClient(_ReuseSSLContext, slixmpp.ClientXMPP):
         sender = presence["from"].bare
         if not sender.endswith(f"@{XMPP_DOMAIN}") or sender == self.bare_jid:
             return
-        self._call_on_loop(self._handle_subscribe, sender)
+        self._call_on_loop(self._handle_device_subscribe, sender)
 
-    def _handle_subscribe(self, sender: str) -> None:
+    def _handle_device_subscribe(self, sender: str) -> None:
         # async_join_room normalises the JID and ignores anything that isn't a
         # real device/room, so a stray sender can never become a bogus join.
         _LOGGER.debug("Wall unit %s subscribed to us; pairing accepted", sender)

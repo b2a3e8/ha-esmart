@@ -11,6 +11,7 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 from homeassistant.core import HomeAssistant
 import pytest
+import slixmpp
 from slixmpp.exceptions import PresenceError
 
 from custom_components.esmart import client as client_mod
@@ -27,6 +28,21 @@ from custom_components.esmart.const import XMPP_HOST, XMPP_PORT
 from .conftest import PASSWORD, ROOM, USERNAME
 
 DEVICE = ROOM.replace("@conference.", "@")
+
+
+def test_no_slixmpp_internals_shadowed() -> None:
+    """Our private helpers must not override slixmpp's same-named handlers.
+
+    slixmpp registers bound methods such as `_handle_subscribe` and
+    `_handle_disconnected` as its own event handlers, so a same-named method
+    here silently replaces its behaviour and gets called with its arguments.
+    """
+    ours = {
+        name
+        for name in vars(ESmartClient)
+        if name.startswith("_") and not name.startswith("__")
+    }
+    assert not {name for name in ours if hasattr(slixmpp.ClientXMPP, name)}
 
 
 class Callbacks:
@@ -182,7 +198,7 @@ async def test_reconnect_stops_and_reports_rejected_credentials(
     assert attempts.await_count == 1
     callbacks.auth_failed.assert_called_once()
     # Later disconnects don't start retrying a login that can't work.
-    client._handle_disconnected("gone")
+    client._handle_connection_lost("gone")
     assert client._reconnect_task.done()
 
 
@@ -199,15 +215,15 @@ async def test_reconnect_retries_until_connected(client: ESmartClient) -> None:
 
 async def test_unexpected_disconnect_schedules_reconnect(client: ESmartClient) -> None:
     with patch.object(client, "_schedule_reconnect") as schedule:
-        client._handle_disconnected("reset")
+        client._handle_connection_lost("reset")
         schedule.assert_called_once()
         # Not while shutting down, and not while async_connect handles it.
         schedule.reset_mock()
         client._connecting = True
-        client._handle_disconnected("reset")
+        client._handle_connection_lost("reset")
         client._connecting = False
         client._closing = True
-        client._handle_disconnected("reset")
+        client._handle_connection_lost("reset")
         schedule.assert_not_called()
 
 
@@ -413,7 +429,7 @@ async def test_pairing_is_accepted_by_subscription(client: ESmartClient) -> None
         pairing = asyncio.ensure_future(client.async_pair("6366"))
         for _ in range(5):
             await asyncio.sleep(0)
-        client._handle_subscribe(DEVICE)
+        client._handle_device_subscribe(DEVICE)
         rooms = await pairing
         await asyncio.gather(*client._tasks)
     assert rooms == [ROOM]

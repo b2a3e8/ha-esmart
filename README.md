@@ -60,7 +60,7 @@ a phone with the eSMART app. The wall unit calls this a "remote".
 2. On the wall unit, open **Settings → Remote access** and start adding a new
    remote. The wall unit now shows a **pairing code**.
 3. Type the code into Home Assistant and submit it right away. The wall unit
-   has to accept it within about 45 seconds.
+   has to accept it before its 60-second countdown runs out.
 
 You can also change the name the wall unit lists this remote under. It's
 "Home Assistant" unless you change it.

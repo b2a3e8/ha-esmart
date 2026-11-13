@@ -44,7 +44,7 @@ class ESmartClimate(ESmartNodeEntity, ClimateEntity, RestoreEntity):
     """An eSMART heating valve, exposed as a heat/off thermostat."""
 
     _attr_name = None  # the node's main feature, named after its device
-    _attr_temperature_unit = UnitOfTemperature.CELSIUS
+    _attr_native_temperature_unit = UnitOfTemperature.CELSIUS
     _attr_hvac_modes = [HVACMode.OFF, HVACMode.HEAT]  # noqa: RUF012 - HA convention
     _attr_supported_features = (
         ClimateEntityFeature.TARGET_TEMPERATURE
@@ -82,11 +82,11 @@ class ESmartClimate(ESmartNodeEntity, ClimateEntity, RestoreEntity):
         return self.hub.setpoint_limits(self.node.room_jid).step
 
     @property
-    def current_temperature(self) -> float | None:
+    def native_current_temperature(self) -> float | None:
         return self.node.temperature
 
     @property
-    def target_temperature(self) -> float | None:
+    def native_target_temperature(self) -> float | None:
         return self.node.setpoint
 
     @property

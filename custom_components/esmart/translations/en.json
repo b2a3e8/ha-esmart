@@ -3,7 +3,7 @@
     "step": {
       "user": {
         "title": "Pair with eSMART",
-        "description": "On the eSMART wall unit, open **Settings → Remote access** and start adding a new remote so a pairing code is shown. Enter that code below. The wall unit has to accept it within about 45 seconds.",
+        "description": "On the eSMART wall unit, open **Settings → Remote access** and start adding a new remote so a pairing code is shown. Enter that code below. The wall unit has to accept it before its 60-second countdown runs out.",
         "data": {
           "pairing_code": "Pairing code",
           "nickname": "Name shown on the wall unit"
@@ -15,7 +15,7 @@
       },
       "reauth_confirm": {
         "title": "Pair with eSMART again",
-        "description": "The wall unit no longer accepts this remote, for example because it was deleted there. On the eSMART wall unit, open **Settings → Remote access** and start adding a new remote so a pairing code is shown. Enter that code below. The wall unit has to accept it within about 45 seconds.",
+        "description": "The wall unit no longer accepts this remote, for example because it was deleted there. On the eSMART wall unit, open **Settings → Remote access** and start adding a new remote so a pairing code is shown. Enter that code below. The wall unit has to accept it before its 60-second countdown runs out.",
         "data": {
           "pairing_code": "Pairing code"
         },
@@ -25,7 +25,7 @@
       },
       "reconfigure": {
         "title": "Pair with eSMART again",
-        "description": "This registers a new remote and replaces the current one, keeping your entities. On the eSMART wall unit, open **Settings → Remote access** and start adding a new remote so a pairing code is shown. Enter that code below. The wall unit has to accept it within about 45 seconds.",
+        "description": "This registers a new remote and replaces the current one, keeping your entities. On the eSMART wall unit, open **Settings → Remote access** and start adding a new remote so a pairing code is shown. Enter that code below. The wall unit has to accept it before its 60-second countdown runs out.",
         "data": {
           "pairing_code": "Pairing code",
           "nickname": "Name shown on the wall unit"
